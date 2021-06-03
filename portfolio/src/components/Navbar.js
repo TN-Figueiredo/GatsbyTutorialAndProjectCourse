@@ -1,20 +1,20 @@
-import React from "react"
-import logo from "../assets/images/logo.svg"
-import { FaAlignRight } from "react-icons/fa"
-import pageLinks from "../constants/links"
-import { Link } from "gatsby"
-const Navbar = () => {
+import React from "react";
+import logo from "../assets/images/logo.svg";
+import {FaAlignRight} from "react-icons/fa";
+import pageLinks from "../constants/links";
+import {Link} from "gatsby";
+const Navbar = ({toggleSidebar}) => {
   return (
     <nav className="navbar">
       <div className="nav-center">
         <div className="nav-header">
           <img src={logo} alt="web dev" />
-          <button type="button" className="toggle-btn">
+          <button type="button" className="toggle-btn" onClick={toggleSidebar}>
             <FaAlignRight />
           </button>
         </div>
         <div className="nav-links">
-          {pageLinks.map(({ id, text, url }) => (
+          {pageLinks.map(({id, text, url}) => (
             <Link key={id} to={url}>
               {text}
             </Link>
@@ -22,7 +22,7 @@ const Navbar = () => {
         </div>
       </div>
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
