@@ -4,6 +4,7 @@ import {Link, graphql} from "gatsby";
 
 import Layout from "../components/layout";
 import RecipesList from "../components/RecipesList";
+import SEO from "../components/SEO";
 
 const About = ({
   data: {
@@ -13,6 +14,7 @@ const About = ({
   console.log("recipes", recipes);
   return (
     <Layout>
+      <SEO title="About" />
       <main className="page">
         <section className="about-page">
           <article>

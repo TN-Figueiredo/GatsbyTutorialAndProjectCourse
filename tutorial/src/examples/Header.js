@@ -30,8 +30,6 @@ const Header = () => {
 
   return (
     <div>
-      {/* <h1>Title: {data.site.siteMetadata.title}</h1>
-      <h1>Name: {data.site.siteMetadata.person.name}</h1> */}
       <h1>Title: {title}</h1>
       <h1>Name: {name}</h1>
     </div>

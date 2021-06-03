@@ -14,11 +14,11 @@ module.exports = {
     title: "Simply Recipes",
     description: "Nice and clean recipes site",
     author: "@johnsmilga",
-    person: { name: "john", age: 32 },
+    person: {name: "john", age: 32},
     simpleData: ["item 1", "item 2"],
     complexData: [
-      { name: "john", age: 32 },
-      { name: "susan", age: 21 },
+      {name: "john", age: 32},
+      {name: "susan", age: 21},
     ],
   },
   plugins: [
@@ -41,5 +41,23 @@ module.exports = {
         accessToken: process.env.CONTENTFUL_API_KEY,
       },
     },
+    {
+      resolve: `gatsby-plugin-webfonts`,
+      options: {
+        fonts: {
+          google: [
+            {
+              family: "Montserrat",
+              variants: ["400"],
+            },
+            {
+              family: "Inconsolata",
+              variants: ["400", "500", "600", "700"],
+            },
+          ],
+        },
+      },
+    },
+    `gatsby-plugin-react-helmet`,
   ],
 };
