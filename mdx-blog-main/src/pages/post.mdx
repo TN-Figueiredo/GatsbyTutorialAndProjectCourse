@@ -1,1 +1,63 @@
+import {Link} from "gatsby";
+import {FiInfo} from "react-icons/fi";
+import {Counter, LikeButton} from "../components/Complete";
+
+<section className="mdx-page">
+
 ## my first mdx file
+
+**Gastropub ennui offal fam 90's lo-fi selvage organic taxidermy microdosing. Copper mug green juice paleo small batch kogi food truck freegan four loko cronut lomo. Asymmetrical +1 viral, authentic beard 3 wolf moon fam chillwave typewriter gentrify celiac bitters franzen. Lumbersexual plaid flannel, locavore vice normcore letterpress yuccie raw denim 90's master cleanse. Plaid deep v cronut 8-bit hashtag, chia food truck etsy poke. Prism cloud bread kickstarter tbh bespoke lo-fi venmo dreamcatcher shabby chic master cleanse distillery pug sartorial tote bag meditation. Before they sold out selvage af pour-over.**
+
+<div className="code">
+
+```js
+const firstName = "thiago";
+const lastName = "Figueiredo";
+```
+
+</div>
+
+<div className="nice-text">
+
+<h3>nice text </h3>
+<FiInfo className="nice-text-icon" />
+
+Ennui stumptown blog, affogato intelligentsia actually swag vaporware vegan try-hard echo park franzen cardigan everyday carry. Intelligentsia poke truffaut seitan unicorn hella tacos tofu cornhole banh mi sartorial subway tile wolf. Austin chillwave pour-over YOLO XOXO unicorn migas. Af normcore banh mi, pitchfork sartorial pork belly fam thundercats vexillologist craft beer.
+
+</div>
+
+<h2> React Components </h2>
+
+<Counter />
+
+```jsx
+import React from "react";
+import styled from "styled-components";
+import {AiOutlineLike} from "react-icons/ai";
+const LikeButton = () => {
+  const [value, setValue] = React.useState(0);
+  return (
+    <Wrapper>
+      <div>
+        <button onClick={() => setValue(value + 1)}>
+          <AiOutlineLike />
+        </button>
+        <p>
+          Liked the post?
+          <br />
+          Click thumbs up few times
+        </p>
+      </div>
+      <span>+{value}</span>
+    </Wrapper>
+  );
+};
+```
+
+<LikeButton />
+
+<Link to="/posts" className="btn center-btn">
+  all posts
+</Link>
+
+</section>
