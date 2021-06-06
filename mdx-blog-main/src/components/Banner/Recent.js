@@ -1,20 +1,49 @@
-import React from 'react'
-import styled from 'styled-components'
-import { graphql, useStaticQuery } from 'gatsby'
-import { Link } from 'gatsby'
-import { GatsbyImage, getImage } from 'gatsby-plugin-image'
-import Title from './Title'
+import React from "react";
+import styled from "styled-components";
+import {graphql, useStaticQuery} from "gatsby";
+import {Link} from "gatsby";
+import {GatsbyImage, getImage} from "gatsby-plugin-image";
+import Title from "./Title";
 
-
-
-const Recent = () => {
-  
+const Recent = props => {
+  const {
+    allMdx: {nodes: posts},
+  } = useStaticQuery(query);
   return (
     <Wrapper>
-      Banner Recent
+      <Title title="recent" />
+      {posts.map(({id, frontmatter: {title, slug, date, image}}) => (
+        <Link key={id} className="post">
+          <GatsbyImage image={getImage(image)} alt={title} className="img" />
+          <div>
+            <h5>{title}</h5>
+            <p>{date}</p>
+          </div>
+        </Link>
+      ))}
     </Wrapper>
-  )
-}
+  );
+};
+
+const query = graphql`
+  {
+    allMdx(limit: 5, sort: {fields: frontmatter___date, order: DESC}) {
+      nodes {
+        frontmatter {
+          title
+          slug
+          date(formatString: "MMMM Do, YYYY")
+          image {
+            childImageSharp {
+              gatsbyImageData
+            }
+          }
+        }
+        id
+      }
+    }
+  }
+`;
 
 const Wrapper = styled.div`
   .post {
@@ -43,6 +72,6 @@ const Wrapper = styled.div`
       color: var(--clr-primary-5);
     }
   }
-`
+`;
 
-export default Recent
+export default Recent;
