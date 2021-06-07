@@ -1,13 +1,30 @@
-import React, { useContext } from 'react'
+import React, {useContext} from "react";
 
-import styled from 'styled-components'
-import { Link } from 'gatsby'
-import { GatsbyContext } from '../context/context'
-const NavLink = () => {
+import styled from "styled-components";
+import {Link} from "gatsby";
+import GatsbyContext from "../context/context";
+import links from "../constants/links";
+const NavLink = ({page}) => {
+  const {} = useContext(GatsbyContext);
+
   return (
-    <h2>nav link</h2>
-  )
-}
+    <Wrapper>
+      <button>{page}</button>
+      <div className="links">
+        {links.map(
+          ({url, label, icon, page: linkPage}, index) =>
+            linkPage === page && (
+              <Link to={url} key={index}>
+                {icon}
+                {label}
+              </Link>
+            )
+        )}
+        <div className="caret"></div>
+      </div>
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.li`
   padding: 1rem 0;
@@ -72,6 +89,6 @@ const Wrapper = styled.li`
     left: 50%;
     transform: translateX(-50%);
   }
-`
+`;
 
-export default NavLink
+export default NavLink;

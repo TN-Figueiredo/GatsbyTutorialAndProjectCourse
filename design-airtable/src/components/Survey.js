@@ -1,15 +1,70 @@
-import React, { useEffect, useState } from 'react'
-import Title from './Title'
-import styled from 'styled-components'
-import base from './Airtable'
-import { FaVoteYea } from 'react-icons/fa'
+import React, {useEffect, useState} from "react";
+import Title from "./Title";
+import styled from "styled-components";
+import base from "./Airtable";
+import {FaVoteYea} from "react-icons/fa";
 
 const Survey = () => {
- 
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const getRecords = async () => {
+      const records = await base("Survey")
+        .select({})
+        .firstPage()
+        .catch(error => console.log(error));
+      const newItems = records.map(({id, fields}) => ({id, fields}));
+
+      setItems(newItems);
+      setLoading(false);
+    };
+    getRecords();
+  }, []);
+
+  const updateVoteItem = ({id, fields}) => {
+    fields = {...fields, votes: fields.votes + 1};
+    return {id, fields};
+  };
+
+  const giveVote = async id => {
+    setLoading(true);
+    const tempItems = [...items].map(item =>
+      item.id === id ? updateVoteItem(item) : item
+    );
+
+    const records = await base("Survey")
+      .update(tempItems)
+      .catch(error => console.log(error));
+    const newItems = records.map(({id, fields}) => ({id, fields}));
+
+    setItems(newItems);
+    setLoading(false);
+  };
+
   return (
-   <h2>survey component</h2>
-  )
-}
+    <Wrapper className="section">
+      <div className="container">
+        <Title title="survey" />
+        <h3>most important room in the house?</h3>
+        <ul>
+          {items.map(({id, fields: {name, votes}}) => (
+            <li key={id}>
+              <div className="key">{name.toUpperCase().substring(0, 2)}</div>
+              <div>
+                <h4>{name}</h4>
+                <p>{votes} votes</p>
+              </div>
+              <button disabled={loading} onClick={() => giveVote(id)}>
+                <FaVoteYea />
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.section`
   .container {
@@ -75,5 +130,5 @@ const Wrapper = styled.section`
       }
     }
   }
-`
-export default Survey
+`;
+export default Survey;
